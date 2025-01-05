@@ -4,26 +4,26 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function JoinPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState('');
-  const [country, setCountry] = useState('India');
-  const [gender, setGender] = useState('Male');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [country, setCountry] = useState("India");
+  const [gender, setGender] = useState("Male");
   const [updates, setUpdates] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     // Example of handling form submission
     try {
-      const response = await fetch('/api/join', {
-        method: 'POST',
+      const response = await fetch("/api/join", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           email,
@@ -38,33 +38,38 @@ export default function JoinPage() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to create account');
+        throw new Error("Failed to create account");
       }
 
       // Handle successful account creation (e.g., redirect or show a success message)
     } catch (error) {
       console.error(error); // Log the error for debugging
-      setError('An error occurred while creating your account. Please try again.');
+      setError("An error occurred while creating your account. Please try again.");
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4">
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
       {/* Nike Logo */}
-      <div className="mb-12">
-        <Image 
-          src="/images/logoNike-2.svg" 
-          alt="Nike" 
-          width={324} 
-          height={17} 
-          className="mx-auto"
+      <div className="mb-8 sm:mb-12">
+        <Image
+          src="/images/logoNike-2.svg"
+          alt="Nike"
+          width={324}
+          height={17}
+          className="mx-auto w-48 sm:w-64"
         />
       </div>
 
       {/* Join Form */}
       <div className="max-w-sm w-full">
-        <h1 className="text-2xl font-bold text-center mb-8">BECOME A NIKE MEMBER</h1>
-        <p className="text-center mb-8">Create your Nike Member profile and get first access to the very best of Nike products, inspiration, and community.</p>
+        <h1 className="text-xl sm:text-2xl font-bold text-center mb-6">
+          BECOME A NIKE MEMBER
+        </h1>
+        <p className="text-center text-sm sm:text-base mb-6">
+          Create your Nike Member profile and get first access to the very best of Nike
+          products, inspiration, and community.
+        </p>
 
         {error && <div className="text-red-500 text-center mb-4">{error}</div>}
 
@@ -76,7 +81,7 @@ export default function JoinPage() {
               placeholder="Email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-3 border rounded focus:outline-none focus:border-black text-base"
+              className="w-full px-3 py-2 sm:py-3 border rounded focus:outline-none focus:border-black text-sm sm:text-base"
               required
             />
           </div>
@@ -88,7 +93,7 @@ export default function JoinPage() {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-3 border rounded focus:outline-none focus:border-black text-base"
+              className="w-full px-3 py-2 sm:py-3 border rounded focus:outline-none focus:border-black text-sm sm:text-base"
               required
             />
           </div>
@@ -100,7 +105,7 @@ export default function JoinPage() {
               placeholder="First Name"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
-              className="w-full px-3 py-3 border rounded focus:outline-none focus:border-black text-base"
+              className="w-full px-3 py-2 sm:py-3 border rounded focus:outline-none focus:border-black text-sm sm:text-base"
               required
             />
           </div>
@@ -112,7 +117,7 @@ export default function JoinPage() {
               placeholder="Last Name"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-              className="w-full px-3 py-3 border rounded focus:outline-none focus:border-black text-base"
+              className="w-full px-3 py-2 sm:py-3 border rounded focus:outline-none focus:border-black text-sm sm:text-base"
               required
             />
           </div>
@@ -123,7 +128,7 @@ export default function JoinPage() {
               type="date"
               value={dateOfBirth}
               onChange={(e) => setDateOfBirth(e.target.value)}
-              className="w-full px-3 py-3 border rounded focus:outline-none focus:border-black text-base"
+              className="w-full px-3 py-2 sm:py-3 border rounded focus:outline-none focus:border-black text-sm sm:text-base"
               required
             />
           </div>
@@ -133,7 +138,7 @@ export default function JoinPage() {
             <select
               value={country}
               onChange={(e) => setCountry(e.target.value)}
-              className="w-full px-3 py-3 border rounded focus:outline-none focus:border-black text-base"
+              className="w-full px-3 py-2 sm:py-3 border rounded focus:outline-none focus:border-black text-sm sm:text-base"
             >
               <option value="India">India</option>
               {/* Add more countries as needed */}
@@ -141,12 +146,12 @@ export default function JoinPage() {
           </div>
 
           {/* Gender Selection */}
-          <div className="flex items-center mb-4">
-            <label className="flex items-center space-x-2">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4">
+            <label className="flex items-center space-x-2 mb-2 sm:mb-0">
               <input
                 type="radio"
                 value="Male"
-                checked={gender === 'Male'}
+                checked={gender === "Male"}
                 onChange={(e) => setGender(e.target.value)}
                 className="rounded"
               />
@@ -156,7 +161,7 @@ export default function JoinPage() {
               <input
                 type="radio"
                 value="Female"
-                checked={gender === 'Female'}
+                checked={gender === "Female"}
                 onChange={(e) => setGender(e.target.value)}
                 className="rounded"
               />
@@ -172,16 +177,19 @@ export default function JoinPage() {
               onChange={(e) => setUpdates(e.target.checked)}
               className="rounded border-gray-300 focus:ring-black"
             />
-            <span className="ml-2">Sign up for emails to get updates from Nike on products, offers, and your Member benefits</span>
+            <span className="ml-2 text-sm sm:text-base">
+              Sign up for emails to get updates from Nike on products, offers, and your
+              Member benefits
+            </span>
           </div>
 
           {/* Terms and Conditions */}
           <div className="text-xs text-gray-500">
-            By creating an account, you agree to Nike&apos;s{' '}
+            By creating an account, you agree to Nike&apos;s{" "}
             <Link href="/privacy-policy" className="underline hover:text-black">
               Privacy Policy
-            </Link>
-            {' '}and{' '}
+            </Link>{" "}
+            and{" "}
             <Link href="/terms" className="underline hover:text-black">
               Terms of Use
             </Link>
@@ -191,14 +199,14 @@ export default function JoinPage() {
           {/* Join Us Button */}
           <button
             type="submit"
-            className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition-colors"
+            className="w-full bg-black text-white py-2 sm:py-3 rounded hover:bg-gray-800 transition-colors text-sm sm:text-base"
           >
             JOIN US
           </button>
 
           {/* Already a Member Link */}
           <div className="text-center text-sm">
-            Already a Member?{' '}
+            Already a Member?{" "}
             <Link href="/login" className="text-black underline hover:no-underline">
               Sign In
             </Link>

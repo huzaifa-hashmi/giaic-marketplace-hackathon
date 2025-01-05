@@ -3,8 +3,9 @@ import { Twitter, Facebook, Youtube, Instagram } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white px-12 py-10">
-      <div className="grid grid-cols-4 gap-8 mb-8">
+    <footer className="bg-black text-white px-4 sm:px-8 lg:px-12 py-10">
+      {/* Grid for Footer Columns */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
         {/* Column 1 */}
         <div>
           <ul className="space-y-3 text-sm">
@@ -41,7 +42,7 @@ export default function Footer() {
         </div>
 
         {/* Column 4 - Social Icons */}
-        <div className="flex gap-4 justify-end">
+        <div className="flex gap-4 sm:justify-start lg:justify-end">
           <Link href="https://twitter.com/Nike" className="hover:text-gray-400">
             <Twitter size={24} />
           </Link>
@@ -58,13 +59,13 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="flex justify-between items-center pt-8 border-t border-gray-800 text-xs text-gray-400">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row justify-between items-center pt-8 border-t border-gray-800 text-xs text-gray-400">
+        <div className="flex items-center gap-2 mb-4 sm:mb-0">
           <span>🌍</span>
           <span>India</span>
           <span>© 2023 Nike, Inc. All Rights Reserved</span>
         </div>
-        <div className="flex gap-6">
+        <div className="flex gap-4 sm:gap-6">
           <Link href="/guides" className="hover:text-white">Guides</Link>
           <Link href="/terms" className="hover:text-white">Terms of Sale</Link>
           <Link href="/terms-of-use" className="hover:text-white">Terms of Use</Link>

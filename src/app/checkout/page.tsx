@@ -142,6 +142,8 @@ const CheckoutPage: React.FC = () => {
                 alt="Nike Dri-FIT ADV TechKnit Ultra Men's Short-Sleeve Running Top"
                 className="h-16 w-16 mr-4"
                 src="https://storage.googleapis.com/a1aa/image/ngS5nR9q5OK5CRSL3pE2pr5cVoX6sbFafJdniU27Ef4OQSfnA.jpg"
+                width={80}
+                height={80}
               />
               <div>
                 <p>Nike Dri-FIT ADV TechKnit Ultra Men&apos;s Short-Sleeve Running Top</p>
@@ -155,6 +157,8 @@ const CheckoutPage: React.FC = () => {
                 alt="Nike Air Max 97 SE Men's Shoes"
                 className="h-16 w-16 mr-4"
                 src="https://storage.googleapis.com/a1aa/image/OlceYd5QWK2jcqty9qrp4MLMQulZgi2ZPwNTQjpNfncMQSfnA.jpg"
+                width={80}
+                height={80}
               />
               <div>
                 <p>Nike Air Max 97 SE Men&apos;s Shoes</p>

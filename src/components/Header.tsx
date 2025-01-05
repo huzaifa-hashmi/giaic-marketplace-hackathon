@@ -3,6 +3,7 @@ import Image from "next/image";
 
 export default function Header() {
   return (
+  
     <header className="bg-[#f5f5f5] px-4 py-2 flex justify-between items-center">
       {/* Jordan Logo */}
       <Link href="/">

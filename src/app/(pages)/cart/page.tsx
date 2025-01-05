@@ -10,7 +10,13 @@ export default function CartPage() {
         {/* Cart Items */}
         <div className="border rounded-lg p-4 mb-4">
           <div className="flex items-center mb-4">
-            <Image src="/images/shop men 1.jpg" alt="Product 1" width={150} height={150} className="mr-4" />
+            <Image
+              src="/images/shop men 1.jpg"
+              alt="Product 1"
+              width={150}
+              height={150}
+              className="mr-4"
+            />
             <div>
               <h2 className="font-semibold">Nike Dri-FIT ADV TechKnit Ultra</h2>
               <p>Men&apos;s Short-Sleeve Running Top</p>
@@ -21,7 +27,13 @@ export default function CartPage() {
             </div>
           </div>
           <div className="flex items-center mb-4">
-          <Image src="" alt="Product 1" width={150} height={150} className="mr-4" />
+            <Image
+              src="/images/shop men 2.jpg"
+              alt="Product 2"
+              width={150}
+              height={150}
+              className="mr-4"
+            />
             <div>
               <h2 className="font-semibold">Nike Air Max 97 SE</h2>
               <p>Men&apos;s Shoes</p>
@@ -51,9 +63,14 @@ export default function CartPage() {
         </div>
 
         {/* Checkout Button */}
-        <Link href="/checkout" className="bg-black text-white rounded px-4 py-2">
-          Member Checkout
-        </Link>
+        <div className="mb-8"> {/* Added margin-bottom here */}
+          <Link
+            href="/checkout"
+            className="bg-black text-white rounded px-4 py-2"
+          >
+            Member Checkout
+          </Link>
+        </div>
       </div>
     </div>
   );

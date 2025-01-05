@@ -1,11 +1,11 @@
-'use client';
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [keepSignedIn, setKeepSignedIn] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -17,11 +17,11 @@ export default function LoginPage() {
     <div className="min-h-screen flex flex-col items-center justify-center px-4">
       {/* Nike Logo */}
       <div className="mb-12">
-        <Image 
-          src="/images/logoNike-2.svg" 
-          alt="Nike" 
-          width={324} 
-          height={17} 
+        <Image
+          src="/images/logoNike-2.svg"
+          alt="Nike"
+          width={324}
+          height={17}
           className="mx-auto"
         />
       </div>
@@ -29,9 +29,9 @@ export default function LoginPage() {
       {/* Login Form */}
       <div className="max-w-sm w-full">
         <div className="text-center mb-12 font-bold">
-          <h1 className="text-2xl ">YOUR ACCOUNT</h1>
-          <h2 className="text-2xl ">FOR EVERYTHING</h2>
-          <h3 className="text-2xl ">NIKE</h3>
+          <h1 className="text-2xl">YOUR ACCOUNT</h1>
+          <h2 className="text-2xl">FOR EVERYTHING</h2>
+          <h3 className="text-2xl">NIKE</h3>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -77,11 +77,11 @@ export default function LoginPage() {
 
           {/* Terms and Conditions */}
           <div className="text-xs text-gray-500">
-            By logging in, you agree to Nike&apos;s{' '}
+            By logging in, you agree to Nike&apos;s{" "}
             <Link href="/privacy-policy" className="underline hover:text-black">
               Privacy Policy
-            </Link>
-            {' '}and{' '}
+            </Link>{" "}
+            and{" "}
             <Link href="/terms" className="underline hover:text-black">
               Terms of Use
             </Link>
@@ -98,7 +98,7 @@ export default function LoginPage() {
 
           {/* Join Us Link */}
           <div className="text-center text-sm">
-            Not a Member?{' '}
+            Not a Member?{" "}
             <Link href="/join" className="text-black underline hover:no-underline">
               Join Us
             </Link>
