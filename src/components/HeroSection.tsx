@@ -65,6 +65,45 @@ export default function HeroSection() {
               </div>
               <p>₹ 13,995</p>
             </div>
+            
+          </div><div className="flex flex-col items-center">
+            <div className="flex justify-center mb-4">
+              <Image 
+                src='/images/sliderImgHome-2.svg' 
+                alt="Nike Air Max Pulse" 
+                width={441} 
+                height={510} 
+                className="rounded-lg w-full h-auto" 
+                layout="responsive"
+              />
+            </div>
+            <div className="flex flex-wrap justify-between w-full">
+              <div>
+                <p className="font-medium">Nike Air Max Pulse</p>
+                <p className="text-gray-600">Men&apos;s Shoes</p>
+              </div>
+              <p>₹ 13,995</p>
+            </div>
+            
+          </div><div className="flex flex-col items-center">
+            <div className="flex justify-center mb-4">
+              <Image 
+                src='/images/sliderImgHome-3.svg' 
+                alt="Nike Air Max Pulse" 
+                width={441} 
+                height={510} 
+                className="rounded-lg w-full h-auto" 
+                layout="responsive"
+              />
+            </div>
+            <div className="flex flex-wrap justify-between w-full">
+              <div>
+                <p className="font-medium">Nike Air Max Pulse</p>
+                <p className="text-gray-600">Men&apos;s Shoes</p>
+              </div>
+              <p>₹ 13,995</p>
+            </div>
+            
           </div>
           {/* ... other items ... */}
         </div>
@@ -123,12 +162,76 @@ export default function HeroSection() {
                   <p>₹ 3,895</p>
                 </div>
               </div>
-              {/* ... other items ... */}
+              <div className="flex flex-col items-center">
+                <div className="flex justify-center mb-4">
+                  <Image 
+                    src='/images/shop men 2.jpg' 
+                    alt="Nike Dri-FIT ADV TechKnit Ultra" 
+                    width={300} 
+                    height={300} 
+                    className="rounded-lg w-full h-auto" 
+                    layout="responsive"
+                  />
+                </div>
+                <div className="flex flex-wrap justify-between w-full">
+                  <div>
+                    <p className="font-medium">Nike Dri-FIT ADV TechKnit Ultra</p>
+                    <p className="text-gray-600">Men&apos;s Short-Sleeve Running Top</p>
+                  </div>
+                  <p>₹ 3,895</p>
+                </div>
+              </div>
             </div>
           </div>
           {/* Shop Women's */}
           <div>
-            {/* ... similar structure ... */}
+            <div className="flex flex-wrap justify-between items-center mb-4">
+              <h3 className="text-xl">Shop Men&apos;s</h3>
+              <Link href="/men" className="flex items-center gap-2">
+                <span className="text-xl">›</span>
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Repeat for each item */}
+              <div className="flex flex-col items-center">
+                <div className="flex justify-center mb-4">
+                  <Image 
+                    src='/images/shop women 1.png' 
+                    alt="Nike Dri-FIT ADV TechKnit Ultra" 
+                    width={300} 
+                    height={300} 
+                    className="rounded-lg w-full h-auto" 
+                    layout="responsive"
+                  />
+                </div>
+                <div className="flex flex-wrap justify-between w-full">
+                  <div>
+                    <p className="font-medium">Nike Dri-FIT ADV TechKnit Ultra</p>
+                    <p className="text-gray-600">Men&apos;s Short-Sleeve Running Top</p>
+                  </div>
+                  <p>₹ 3,895</p>
+                </div>
+              </div><div className="flex flex-col items-center">
+                <div className="flex justify-center mb-4">
+                  <Image 
+                    src='/images/shop women 2.png' 
+                    alt="Nike Dri-FIT ADV TechKnit Ultra" 
+                    width={300} 
+                    height={300} 
+                    className="rounded-lg w-full h-auto" 
+                    layout="responsive"
+                  />
+                </div>
+                <div className="flex flex-wrap justify-between w-full">
+                  <div>
+                    <p className="font-medium">Nike Dri-FIT ADV TechKnit Ultra</p>
+                    <p className="text-gray-600">Men&apos;s Short-Sleeve Running Top</p>
+                  </div>
+                  <p>₹ 3,895</p>
+                </div>
+              </div>
+              {/* ... other items ... */}
+            </div>
           </div>
         </div>
       </div>
@@ -163,6 +266,30 @@ export default function HeroSection() {
           <div className="relative">
             <Image 
               src="/images/essential-1.png" 
+              alt="Men's Essentials" 
+              width={440} 
+              height={540} 
+              className="rounded-lg w-full h-auto" 
+              layout="responsive"
+            />
+            <div className="absolute bottom-4 left-4">
+              <span className="bg-white px-4 py-1 rounded-full text-sm">Men&apos;s</span>
+            </div>
+          </div><div className="relative">
+            <Image 
+              src="/images/essential-2.png" 
+              alt="Men's Essentials" 
+              width={440} 
+              height={540} 
+              className="rounded-lg w-full h-auto" 
+              layout="responsive"
+            />
+            <div className="absolute bottom-4 left-4">
+              <span className="bg-white px-4 py-1 rounded-full text-sm">Men&apos;s</span>
+            </div>
+          </div><div className="relative">
+            <Image 
+              src="/images/essential-3.png" 
               alt="Men's Essentials" 
               width={440} 
               height={540} 
