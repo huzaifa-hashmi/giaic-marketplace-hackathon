@@ -1,24 +1,31 @@
+"use client";
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { MessageCircle, ShoppingCart } from 'lucide-react'; // Lucide icons
+import { MessageCircle, ShoppingCart } from 'lucide-react';
+import { useCartStore } from '../store/cartStore'; // Import Zustand store
 
 const CheckoutPage: React.FC = () => {
+  const { cart } = useCartStore(); // Fetch cart data from Zustand
+
+  // Calculate the total price dynamically
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
   return (
     <div className="bg-white text-gray-800">
       {/* Header */}
       <header className="flex justify-between items-center p-4 border-b border-gray-200">
         <Image
-          width={150} // Adjusted for mobile
+          width={150}
           height={15}
           alt="Nike logo"
           src="/images/logoNike-2.svg"
-          className="w-32 md:w-48" // Responsive logo sizing
+          className="w-32 md:w-48"
         />
         <div className="flex items-center space-x-2 md:space-x-4">
           <span className="text-sm md:text-base">000 800 100 9538</span>
-          <MessageCircle className="w-4 h-4 md:w-5 md:h-5 text-gray-600" /> {/* Text box icon */}
-          <ShoppingCart className="w-4 h-4 md:w-5 md:h-5 text-gray-600" /> {/* Shopping cart icon */}
+          <MessageCircle className="w-4 h-4 md:w-5 md:h-5 text-gray-600" />
+          <ShoppingCart className="w-4 h-4 md:w-5 md:h-5 text-gray-600" />
         </div>
       </header>
 
@@ -120,42 +127,28 @@ const CheckoutPage: React.FC = () => {
         <aside className="md:w-1/3 mt-8 md:mt-0">
           <h2 className="text-lg md:text-xl font-semibold mb-4">Order Summary</h2>
           <div className="mb-4">
-            {/* Product 1 - Nike Dri-FIT Top */}
-            <div className="flex items-center space-x-4 mb-4">
-              <Image
-                width={80}
-                height={80}
-                alt="Nike Dri-FIT Top"
-                src="/images/shop men 1.jpg" // Replace with the actual image path
-                className="w-20 h-20 rounded-lg"
-              />
-              <div>
-                <p className="text-sm font-semibold">Nike Dri-FIT ADV TechKnit Ultra Men&apos;s Short-Sleeve Running Top</p>
-                <p className="text-xs text-gray-500">Qty: 1 | Size: L</p>
-                <p className="text-sm font-semibold">₹ 3,895.00</p>
+            {/* Dynamically Render Cart Items */}
+            {cart.map((item) => (
+              <div key={item.id} className="flex items-center space-x-4 mb-4">
+                <Image
+                  width={80}
+                  height={80}
+                  alt={item.productName}
+                  src={item.image}
+                  className="w-20 h-20 rounded-lg"
+                />
+                <div>
+                  <p className="text-sm font-semibold">{item.productName}</p>
+                  <p className="text-xs text-gray-500">Qty: {item.quantity}</p>
+                  <p className="text-sm font-semibold">₹ {(item.price * item.quantity).toFixed(2)}</p>
+                </div>
               </div>
-            </div>
-
-            {/* Product 2 - Nike Air Max 97 SE Shoes */}
-            <div className="flex items-center space-x-4 mb-4">
-              <Image
-                width={80}
-                height={80}
-                alt="Nike Air Max 97 SE Shoes"
-                src="/images/sliderImgHome-3.svg" // Replace with the actual image path
-                className="w-20 h-20 rounded-lg"
-              />
-              <div>
-                <p className="text-sm font-semibold">Nike Air Max 97 SE Men&apos;s Shoes</p>
-                <p className="text-xs text-gray-500">Qty: 1 | Size: UK 8</p>
-                <p className="text-sm font-semibold">₹ 16,995.00</p>
-              </div>
-            </div>
+            ))}
 
             {/* Order Summary */}
             <div className="flex justify-between mb-2">
               <span className="text-sm md:text-base">Subtotal</span>
-              <span className="text-sm md:text-base">₹ 20,890.00</span>
+              <span className="text-sm md:text-base">₹ {total.toFixed(2)}</span>
             </div>
             <div className="flex justify-between mb-2">
               <span className="text-sm md:text-base">Delivery/Shipping</span>
@@ -163,7 +156,7 @@ const CheckoutPage: React.FC = () => {
             </div>
             <div className="flex justify-between font-semibold">
               <span className="text-sm md:text-base">Total</span>
-              <span className="text-sm md:text-base">₹ 20,890.00</span>
+              <span className="text-sm md:text-base">₹ {total.toFixed(2)}</span>
             </div>
             <p className="text-xs text-gray-500 mt-2">The total reflects the price of your order, including all duties and taxes</p>
           </div>

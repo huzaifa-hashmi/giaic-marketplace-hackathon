@@ -1,48 +1,77 @@
 "use client";
+import { useEffect } from 'react';
 import Link from "next/link";
 import Image from "next/image";
+import { useCartStore } from '../../store/cartStore';
+import toast from 'react-hot-toast';
 
 export default function CartPage() {
+  const { cart, removeFromCart, updateQuantity, isHydrated } = useCartStore();
+
+  // Force rehydration on component mount
+  useEffect(() => {
+    useCartStore.persist.rehydrate();
+  }, []);
+
+  // Show loading state until hydrated
+  if (!isHydrated) {
+    return <div>Loading cart...</div>;
+  }
+
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  const handleRemoveItem = (id: string, productName: string) => {
+    removeFromCart(id);
+    toast.success(`${productName} removed from cart!`);
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4">
       <h1 className="text-2xl font-bold mb-4">Bag</h1>
       <div className="w-full max-w-6xl">
         {/* Cart Items */}
         <div className="border rounded-lg p-4 mb-4">
-          <div className="flex items-center mb-4">
-            <Image
-              src="/images/shop men 1.jpg"
-              alt="Product 1"
-              width={150}
-              height={150}
-              className="mr-4"
-            />
-            <div>
-              <h2 className="font-semibold">Nike Dri-FIT ADV TechKnit Ultra</h2>
-              <p>Men&apos;s Short-Sleeve Running Top</p>
-              <p>Ashen Slate/Cobalt Bliss</p>
-              <p>Size: L</p>
-              <p>Quantity: 1</p>
-              <span>MRP: ₹ 3,895.00</span>
-            </div>
-          </div>
-          <div className="flex items-center mb-4">
-            <Image
-              src="/images/shop men 2.jpg"
-              alt="Product 2"
-              width={150}
-              height={150}
-              className="mr-4"
-            />
-            <div>
-              <h2 className="font-semibold">Nike Air Max 97 SE</h2>
-              <p>Men&apos;s Shoes</p>
-              <p>Flat Pewter/Light Bone/Black/White</p>
-              <p>Size: 8</p>
-              <p>Quantity: 1</p>
-              <span>MRP: ₹ 16,995.00</span>
-            </div>
-          </div>
+          {cart.length === 0 ? (
+            <p className="text-center text-gray-500">Your cart is empty.</p>
+          ) : (
+            cart.map((item) => (
+              <div key={item.id} className="flex items-center mb-4">
+                <Image
+                  src={item.image}
+                  alt={item.productName}
+                  width={150}
+                  height={150}
+                  className="mr-4"
+                />
+                <div className="flex-1">
+                  <h2 className="font-semibold">{item.productName}</h2>
+                  <p>Price: ₹ {item.price.toFixed(2)}</p>
+                  <div className="flex items-center mt-2">
+                    <button
+                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                      className="px-3 py-1 border rounded-l hover:bg-gray-100"
+                      disabled={item.quantity === 1}
+                    >
+                      -
+                    </button>
+                    <span className="px-4 py-1 border-t border-b">{item.quantity}</span>
+                    <button
+                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                      className="px-3 py-1 border rounded-r hover:bg-gray-100"
+                    >
+                      +
+                    </button>
+                  </div>
+                  <button
+                    onClick={() => handleRemoveItem(item.id, item.productName)}
+                    className="text-red-500 hover:text-red-700 mt-2"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            ))
+          )}
         </div>
 
         {/* Summary */}
@@ -50,7 +79,7 @@ export default function CartPage() {
           <h2 className="text-xl font-semibold mb-2">Summary</h2>
           <div className="flex justify-between">
             <span>Subtotal:</span>
-            <span>₹ 20,890.00</span>
+            <span>₹ {total.toFixed(2)}</span>
           </div>
           <div className="flex justify-between">
             <span>Estimated Delivery & Handling:</span>
@@ -58,15 +87,17 @@ export default function CartPage() {
           </div>
           <div className="flex justify-between font-bold">
             <span>Total:</span>
-            <span>₹ 20,890.00</span>
+            <span>₹ {total.toFixed(2)}</span>
           </div>
         </div>
 
         {/* Checkout Button */}
-        <div className="mb-8"> {/* Added margin-bottom here */}
+        <div className="mb-8">
           <Link
-            href="/checkout"
-            className="bg-black text-white rounded px-4 py-2"
+            href={cart.length > 0 ? "/checkout" : "#"} // Redirect to checkout only if cart is not empty
+            className={`bg-black text-white rounded px-4 py-2 ${
+              cart.length === 0 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-800"
+            }`}
           >
             Member Checkout
           </Link>

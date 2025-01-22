@@ -2,6 +2,7 @@ import ProductImages from '../../../../components/ProductImages';
 import { Heart } from 'lucide-react';
 import { getProductById } from '../../../../lib/api';
 import { Product } from '../../../../lib/types';
+import AddToCartButton from '../../../../components/AddToCartButton';
 
 export default async function ProductDetail({ params }: { params: { id: string } }) {
   let product: Product;
@@ -18,14 +19,11 @@ export default async function ProductDetail({ params }: { params: { id: string }
     '/images/sliderImgHome-2.svg',
   ];
 
-  const sizes = [6, 7, 8, 9, 10, 11];
-
   return (
     <main className="max-w-7xl mx-auto px-8 py-12">
       <div className="grid grid-cols-2 gap-16">
         <ProductImages
           mainImage={productImages[0]}
-          
         />
         <div>
           <div className="flex justify-between items-start mb-4">
@@ -40,8 +38,15 @@ export default async function ProductDetail({ params }: { params: { id: string }
             <p className="text-sm text-gray-500">incl. of taxes</p>
           </div>
           <p className="text-gray-700 mb-8">{product.description}</p>
-          {/* Add to Cart and Favorite buttons */}
-          {/* Product Features and Delivery & Returns sections */}
+          
+          <AddToCartButton
+            product={{
+              _id: product._id,
+              productName: product.productName,
+              price: product.price,
+              image: productImages[0],
+            }}
+          />
         </div>
       </div>
     </main>

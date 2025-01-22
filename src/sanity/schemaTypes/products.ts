@@ -1,4 +1,4 @@
-export const productSchema = {
+export default{
   name: 'product',
   title: 'Product',
   type: 'document',
