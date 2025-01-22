@@ -2,50 +2,18 @@ import React from 'react';
 import FilterSidebar from '../../../components/FilterSidebar';
 import ProductCard from '../../../components/ProductCard';
 import RelatedCategories from '../../../components/RelatedCategories';
+import { getProducts } from '../../../lib/api'; // Import the utility function
+import { Product } from '../../../lib/types'; // Import the Product type
 
-// Sample product data - 30 products
-const products = Array.from({ length: 30 }, (_, index) => {
-  const variants = [
-    {
-      image: '/images/sliderImgHome-1.svg',
-      name: 'Nike Air Force 1 Mid \'07',
-      category: 'Men\'s Shoes',
-      price: 10795,
-    },
-    {
-      image: '/images/sliderImgHome-2.svg',
-      name: 'Nike Court Vision Low Next Nature',
-      category: 'Men\'s Shoes',
-      price: 4995,
-    },
-    {
-      image: '/images/sliderImgHome-3.svg',
-      name: 'Nike Air Force 1 PLT.AF.ORM',
-      category: 'Women\'s Shoes',
-      price: 8695,
-    },
-  ];
+export default async function ProductsPage() {
+  // Fetch products directly in the Server Component
+  const products: Product[] = await getProducts();
 
-  // Use modulo to cycle through the variants
-  const variant = variants[index % 3];
-
-  return {
-    id: index + 1,
-    image: variant.image,
-    label: index < 5 ? 'Just In' : index < 10 ? 'Promo Exclusion' : 'Bestseller',
-    name: `${variant.name} ${Math.floor(index / 3) + 1}`,
-    category: variant.category,
-    colors: (index % 3) + 1,
-    price: variant.price + index * 100,
-  };
-});
-
-export default function ProductsPage() {
   return (
     <div className="flex min-h-screen">
       {/* Sidebar Filters */}
       <div className="hidden md:block">
-        <FilterSidebar/>
+        <FilterSidebar />
       </div>
 
       {/* Product Grid and Related Categories */}
@@ -66,14 +34,15 @@ export default function ProductsPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
           {products.map((product) => (
             <ProductCard
-              key={product.id}
-              id={product.id}
-              image={product.image}
-              label={product.label}
-              name={product.name}
+              key={product._id} // Use _id from Sanity
+              id={product._id}
+              image={product.image?.asset?.url} // Access the image URL
+              label={product.status} // Use status as the label
+              name={product.productName} // Use productName from schema
               category={product.category}
-              colors={product.colors}
               price={product.price}
+              //inventory={product.inventory} // Pass inventory to ProductCard
+              //description={product.description} // Pass description to ProductCard
             />
           ))}
         </div>

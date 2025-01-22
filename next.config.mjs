@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images: {
-        domains: ['storage.googleapis.com'], // Add the domain here
-      },
+  images: {
+    domains: ['cdn.sanity.io', 'storage.googleapis.com'], // Add both domains here
+  },
 };
 
 export default nextConfig;
