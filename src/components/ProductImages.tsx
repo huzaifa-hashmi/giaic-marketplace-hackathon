@@ -5,14 +5,15 @@ import Image from 'next/image';
 interface ProductImagesProps {
   mainImage: string;
   additionalImages?: string[];
+  className?: string;
 }
 
-export default function ProductImages({ mainImage, additionalImages = [] }: ProductImagesProps) {
+export default function ProductImages({ mainImage, additionalImages = [], className }: ProductImagesProps) {
   const [selectedImage, setSelectedImage] = useState(mainImage);
   const allImages = [mainImage, ...additionalImages];
 
   return (
-    <div className="space-y-4">
+    <div className={`space-y-4 ${className || ''}`}>
       {/* Main Image */}
       <div className="bg-[#f5f5f5] rounded-lg p-8 flex items-center justify-center">
         <Image

@@ -6,14 +6,19 @@ import { useCartStore } from '../../store/cartStore';
 import toast from 'react-hot-toast';
 
 export default function CartPage() {
-  const { cart, removeFromCart, updateQuantity, isHydrated } = useCartStore();
+  const { cart, removeFromCart, updateQuantity, isHydrated, hydrate } = useCartStore();
 
-  // Force rehydration on component mount
+  // Force rehydration when component mounts
   useEffect(() => {
-    useCartStore.persist.rehydrate();
-  }, []);
+    // Check if window is defined (client-side)
+    if (typeof window !== 'undefined') {
+      const savedCart = localStorage.getItem('cart-storage');
+      if (savedCart && !isHydrated) {
+        hydrate();
+      }
+    }
+  }, [hydrate, isHydrated]);
 
-  // Show loading state until hydrated
   if (!isHydrated) {
     return <div>Loading cart...</div>;
   }

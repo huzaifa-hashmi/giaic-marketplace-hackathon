@@ -17,6 +17,11 @@ interface CartState {
   removeFromCart: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
   hydrate: () => void;
+  clearCart: () => void;
+}
+
+interface PersistedState {
+  cart: CartItem[];
 }
 
 export const useCartStore = create<CartState>()(
@@ -25,50 +30,58 @@ export const useCartStore = create<CartState>()(
       cart: [],
       isHydrated: false,
       addToCart: (item) => {
-        console.log('[addToCart] Adding item:', item); // Log the item being added
-        const existingItem = get().cart.find((i) => i.id === item.id);
+        const state = get();
+        const newCart = [...state.cart];
+        const existingItem = newCart.find((i) => i.id === item.id);
+        
         if (existingItem) {
-          console.log('[addToCart] Item already exists, updating quantity:', existingItem); // Log existing item
-          set((state) => ({
-            cart: state.cart.map((i) =>
-              i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
-            ),
-          }));
+          existingItem.quantity += 1;
         } else {
-          console.log('[addToCart] Item is new, adding to cart:', item); // Log new item
-          set((state) => ({ cart: [...state.cart, { ...item, quantity: 1 }] }));
+          newCart.push({ ...item, quantity: 1 });
         }
-        console.log('[addToCart] Updated cart:', get().cart); // Log the updated cart
+        
+        set({ ...state, cart: newCart });
       },
       removeFromCart: (id) => {
-        console.log('[removeFromCart] Removing item with ID:', id); // Log the ID of the item being removed
-        set((state) => ({
-          cart: state.cart.filter((item) => item.id !== id),
-        }));
-        console.log('[removeFromCart] Updated cart:', get().cart); // Log the updated cart
+        const state = get();
+        const newCart = state.cart.filter(item => item.id !== id);
+        set({ ...state, cart: newCart });
+        
+        if (typeof window !== 'undefined') {
+          const storageData = {
+            state: { cart: newCart, isHydrated: true },
+            version: 0
+          };
+          window.localStorage.setItem('cart-storage', JSON.stringify(storageData));
+        }
       },
       updateQuantity: (id, quantity) => {
-        console.log('[updateQuantity] Updating item with ID:', id, 'New quantity:', quantity); // Log the ID and new quantity
         set((state) => ({
+          ...state,
           cart: state.cart.map((item) =>
             item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item
           ),
         }));
-        console.log('[updateQuantity] Updated cart:', get().cart); // Log the updated cart
       },
-      hydrate: () => {
-        console.log('[hydrate] Hydrating store'); // Log when hydration occurs
-        set({ isHydrated: true });
-      },
+      hydrate: () => set((state) => ({ ...state, isHydrated: true })),
+      clearCart: () => set((state) => ({ ...state, cart: [] })),
     }),
     {
       name: 'cart-storage',
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({ cart: state.cart }),
-      onRehydrateStorage: () => (state) => {
-        console.log('[onRehydrateStorage] Rehydrating store:', state); // Log the state during rehydration
-        state?.hydrate();
-      },
+      merge: (persistedState: PersistedState, currentState: CartState) => {
+        const mergedState: CartState = {
+          cart: persistedState.cart || [],
+          isHydrated: currentState.isHydrated,
+          addToCart: currentState.addToCart,
+          removeFromCart: currentState.removeFromCart,
+          updateQuantity: currentState.updateQuantity,
+          hydrate: currentState.hydrate,
+          clearCart: currentState.clearCart,
+        };
+        return mergedState;
+      }
     }
   )
 );

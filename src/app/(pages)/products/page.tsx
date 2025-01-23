@@ -22,7 +22,7 @@ export default async function ProductsPage() {
         <div className="flex justify-between items-center mb-6 md:hidden">
           <div></div>
           <div className="flex items-center gap-4">
-            {/* Toggle button for mobile (optional) */}
+            {/* Removed the dropdown button */}
             <button className="flex items-center gap-2">
               Filters
               <span>▾</span>
@@ -31,7 +31,7 @@ export default async function ProductsPage() {
         </div>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12 justify-items-center"> {/* Center-aligned */}
           {products.map((product) => (
             <ProductCard
               key={product._id} // Use _id from Sanity

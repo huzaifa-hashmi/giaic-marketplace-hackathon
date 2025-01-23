@@ -1,8 +1,9 @@
 "use client";
+import { useEffect } from 'react';
 import { Button } from './ui/button';
 import { ShoppingCart } from 'lucide-react';
 import { useCartStore } from '../app/store/cartStore';
-import toast from 'react-hot-toast'; // Import toast
+import toast from 'react-hot-toast';
 
 // Define the AddToCartButtonProps interface
 interface AddToCartButtonProps {
@@ -15,10 +16,17 @@ interface AddToCartButtonProps {
 }
 
 export default function AddToCartButton({ product }: AddToCartButtonProps) {
-  const { addToCart, isHydrated } = useCartStore();
+  const { addToCart, isHydrated, hydrate } = useCartStore();
+
+  useEffect(() => {
+    if (!isHydrated) {
+      hydrate();
+    }
+  }, [hydrate, isHydrated]);
 
   const handleAddToCart = () => {
-    if (!isHydrated) return; // Block actions until hydrated
+    if (!isHydrated) return;
+    
     addToCart({
       id: product._id,
       productName: product.productName,
@@ -26,7 +34,7 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
       image: product.image,
       quantity: 1,
     });
-    toast.success(`${product.productName} added to cart!`); // Show success toast
+    toast.success(`${product.productName} added to cart!`);
   };
 
   return (
@@ -34,7 +42,7 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
       className="w-[174px] h-[54px] font-medium rounded-[30px]"
       variant="default"
       onClick={handleAddToCart}
-      disabled={!isHydrated} // Disable button until hydrated
+      disabled={!isHydrated}
     >
       <ShoppingCart className="w-5 h-5 mr-2" />
       Add to Cart
