@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { UserButton } from "@clerk/nextjs";
 
 export default function Header() {
   return (
@@ -34,6 +35,7 @@ export default function Header() {
           Sign In
         </Link>
       </div>
+      <UserButton showName/>
     </header>
   );
 }
